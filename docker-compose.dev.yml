@@ -1,0 +1,19 @@
+services:
+  rebuild-mysql:     # 팀/프로젝트 이름을 접두사로 붙여 팀원이 여러 도커 띄워도 충돌이 안 나도록!
+    image: mysql:8.0.43
+    container_name: rebuild-mysql-dev  # 프로젝트-서비스-환경 -> 협업 시 직관적임
+    environment:
+      MYSQL_ROOT_PASSWORD: rebuild_root
+      MYSQL_DATABASE: rebuild_db
+      MYSQL_USER: rebuild
+      MYSQL_PASSWORD: rebuild_pw
+      TZ: Asia/Seoul
+    command: [
+      "--default-authentication-plugin=caching_sha2_password",
+      "--character-set-server=utf8mb4",
+      "--collation-server=utf8mb4_unicode_ci"
+    ]
+    ports:
+      - "3309:3306"
+    volumes:
+      - ./_vol/mysql:/var/lib/mysql
