@@ -23,7 +23,10 @@ public enum ErrorCode {
     // ========= COMMON =========
     INVALID_INPUT_VALUE(HttpStatus.BAD_REQUEST, "COMMON001", "요청 값이 올바르지 않습니다."),
     METHOD_NOT_ALLOWED(HttpStatus.METHOD_NOT_ALLOWED, "COMMON002", "지원하지 않는 HTTP 메서드입니다."),
-    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "COMMON999", "서버 내부 에러가 발생했습니다.");
+    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "COMMON999", "서버 내부 에러가 발생했습니다."),
+
+    // ========= LETTER =========
+    LETTER_NOT_FOUND(HttpStatus.NOT_FOUND, "LETTER001", "존재하지 않는 편지입니다.");
 
     private final HttpStatus status;
     private final String code;
