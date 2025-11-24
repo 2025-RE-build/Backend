@@ -46,6 +46,9 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    implementation "com.openai:openai-java:1.5.1"
+    implementation "com.openai:openai-java-client-okhttp:1.5.1"
 }
 
 tasks.named('test') {

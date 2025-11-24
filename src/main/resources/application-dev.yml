@@ -12,3 +12,5 @@ jwt:
   secret: s8Kf9!xP2zLq#0Wm@R4tV7nB3uH$Qp1YcE5jD8rT6kF!Zg9
   access-token-validity-in-ms: 1800000      # 30분
   refresh-token-validity-in-ms: 604800000
+openai:
+  api-key: ${OPENAI_API_KEY}
