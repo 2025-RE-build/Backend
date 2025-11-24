@@ -27,7 +27,7 @@ public class BreakupService {
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
     }
 
-    /** 유저당 이별은 1개 - 없으면 새로 생성, 있으면 기존 reason, breakupDate 수정 */
+    // 유저당 이별은 1개 - 없으면 새로 생성, 있으면 기존 reason, breakupDate 수정
     @Transactional
     public void saveOrUpdateBreakup(Long userId, BreakupSaveRequestDto request) {
 
@@ -56,7 +56,7 @@ public class BreakupService {
         breakupEventRepository.save(event);
     }
 
-    /** 홈 화면용: 오늘 기준 D+N, 이유, 날짜 출력*/
+    // 홈 화면용: 오늘 기준 D+N, 이유, 날짜 출력
     @Transactional(readOnly = true)
     public BreakupHomeResponseDto getHomeSummary(Long userId) {
         User user = getUserOrThrow(userId);
