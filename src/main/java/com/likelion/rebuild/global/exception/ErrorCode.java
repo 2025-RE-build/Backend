@@ -29,7 +29,13 @@ public enum ErrorCode {
     LETTER_NOT_FOUND(HttpStatus.NOT_FOUND, "LETTER001", "존재하지 않는 편지입니다."),
 
     // ========= BREAKUP =========
-    BREAKUP_EVENT_NOT_FOUND(HttpStatus.NOT_FOUND, "BREAKUP001", "이별 정보를 찾을 수 없습니다");
+    BREAKUP_EVENT_NOT_FOUND(HttpStatus.NOT_FOUND, "BREAKUP001", "이별 정보를 찾을 수 없습니다"),
+
+    // ========= MISSION =========
+    MISSION_NOT_FOUND(HttpStatus.NOT_FOUND, "MISSION001","미션을 찾을 수 없습니다."),
+    USER_MISSION_NOT_FOUND(HttpStatus.NOT_FOUND, "MISSION002", "사용자의 미션 정보를 찾을 수 없습니다."),
+    MISSION_NOT_AVAILABLE(HttpStatus.BAD_REQUEST, "MISSION003", "현재 이 미션을 사용할 수 없습니다."),
+    FORBIDDEN_MISSION_ACCESS(HttpStatus.FORBIDDEN, "MISSION004", "해당 미션에 접근할 권한이 없습니다.");
 
     private final HttpStatus status;
     private final String code;
