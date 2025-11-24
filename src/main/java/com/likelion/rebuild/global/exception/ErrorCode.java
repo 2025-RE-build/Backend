@@ -26,7 +26,10 @@ public enum ErrorCode {
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "COMMON999", "서버 내부 에러가 발생했습니다."),
 
     // ========= LETTER =========
-    LETTER_NOT_FOUND(HttpStatus.NOT_FOUND, "LETTER001", "존재하지 않는 편지입니다.");
+    LETTER_NOT_FOUND(HttpStatus.NOT_FOUND, "LETTER001", "존재하지 않는 편지입니다."),
+
+    // ========= BREAKUP =========
+    BREAKUP_EVENT_NOT_FOUND(HttpStatus.NOT_FOUND, "BREAKUP001", "이별 정보를 찾을 수 없습니다");
 
     private final HttpStatus status;
     private final String code;
