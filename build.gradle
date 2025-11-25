@@ -49,6 +49,13 @@ dependencies {
 
     implementation "com.openai:openai-java:1.5.1"
     implementation "com.openai:openai-java-client-okhttp:1.5.1"
+
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.webjars:stomp-websocket:2.3.3'
+    implementation 'org.webjars:sockjs-client:1.5.1'
+
 }
 
 tasks.named('test') {
