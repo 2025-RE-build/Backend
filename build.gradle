@@ -50,6 +50,7 @@ dependencies {
     implementation "com.openai:openai-java:1.5.1"
     implementation "com.openai:openai-java-client-okhttp:1.5.1"
 
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'

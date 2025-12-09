@@ -23,12 +23,15 @@ public class Post {
 
     private String title;
 
+    @Column
+    private String imageUrl;
+
     @Column(columnDefinition = "TEXT")
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
-    private User author;  // 작성자 (이미 존재하는 User 엔티티 사용)
+    private User author;
 
     @Builder.Default
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -47,9 +50,12 @@ public class Post {
     public void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
-    public void update(String title, String content) {
+
+    // 제목/내용 수정
+    public void update(String title, String content, String imageUrl) {
         this.title = title;
         this.content = content;
+        this.imageUrl = imageUrl;
         this.updatedAt = LocalDateTime.now();
     }
 }

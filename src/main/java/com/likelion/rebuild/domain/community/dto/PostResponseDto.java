@@ -13,6 +13,7 @@ public class PostResponseDto {
     private String author;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private String imageUrl;
 
     public PostResponseDto(Post p) {
         this.id = p.getId();
@@ -21,6 +22,7 @@ public class PostResponseDto {
         this.author = p.getAuthor().getNickname();
         this.createdAt = p.getCreatedAt();
         this.updatedAt = p.getUpdatedAt();
+        this.imageUrl = p.getImageUrl();
     }
 }
 

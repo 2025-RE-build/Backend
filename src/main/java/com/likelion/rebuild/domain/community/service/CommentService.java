@@ -7,6 +7,7 @@ import com.likelion.rebuild.domain.community.entity.Post;
 import com.likelion.rebuild.domain.community.repository.CommentRepository;
 import com.likelion.rebuild.domain.community.repository.PostRepository;
 import com.likelion.rebuild.domain.user.entity.User;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,8 @@ public class CommentService {
         return commentRepository.findByPostIdOrderByCreatedAtAsc(postId)
                 .stream().map(CommentResponseDto::new).toList();
     }
+
+    @Transactional
     public CommentResponseDto update(Long commentId, CommentRequestDto dto, User user) {
         Comment comment = commentRepository.findById(commentId).orElseThrow();
 
@@ -41,9 +44,9 @@ public class CommentService {
             throw new RuntimeException("작성자만 수정할 수 있습니다.");
         }
 
-        comment.update(dto.getContent());
+        comment.update(dto.getContent()); // 변경
 
-        return new CommentResponseDto(comment);
+        return new CommentResponseDto(comment); // DB에 자동 반영됨
     }
 
     public void delete(Long commentId, User user) {
@@ -55,5 +58,9 @@ public class CommentService {
 
         commentRepository.delete(comment);
     }
-
+//내가 쓴 댓글들
+    public List<CommentResponseDto> getMyComments(User user) {
+        return commentRepository.findByAuthorOrderByCreatedAtDesc(user)
+                .stream().map(CommentResponseDto::new).toList();
+    }
 }

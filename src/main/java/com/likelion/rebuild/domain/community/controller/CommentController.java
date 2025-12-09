@@ -4,6 +4,8 @@ import com.likelion.rebuild.domain.community.dto.CommentRequestDto;
 import com.likelion.rebuild.domain.community.dto.CommentResponseDto;
 import com.likelion.rebuild.domain.community.service.CommentService;
 import com.likelion.rebuild.domain.user.entity.User;
+import com.likelion.rebuild.domain.user.repository.UserRepository;
+import com.likelion.rebuild.global.security.UserPrincipal;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -19,16 +21,21 @@ import java.util.List;
 public class CommentController {
 
     private final CommentService commentService;
-    
+    private final UserRepository userRepository;
+
     @Operation(summary = "댓글 작성", description = "사용자가 댓글을 작성합니다.")
     @PostMapping("/{postId}")
     public CommentResponseDto create(
             @PathVariable Long postId,
             @RequestBody CommentRequestDto dto,
-            @AuthenticationPrincipal User user
+            @AuthenticationPrincipal UserPrincipal principal   // ★ 수정
     ) {
+        User user = userRepository.findByLoginId(principal.getUsername())
+                .orElseThrow();
+
         return commentService.create(postId, dto, user);
     }
+
     @Operation(summary = "댓글 목록", description = "게시글별 댓글 목록.")
     @GetMapping("/{postId}/list")
     public List<CommentResponseDto> list(@PathVariable Long postId) {
@@ -40,8 +47,11 @@ public class CommentController {
     public CommentResponseDto update(
             @PathVariable Long commentId,
             @RequestBody CommentRequestDto dto,
-            @AuthenticationPrincipal User user
+            @AuthenticationPrincipal UserPrincipal principal  // ★ 수정
     ) {
+        User user = userRepository.findByLoginId(principal.getUsername())
+                .orElseThrow();
+
         return commentService.update(commentId, dto, user);
     }
 
@@ -49,10 +59,23 @@ public class CommentController {
     @DeleteMapping("/{commentId}/delete")
     public String delete(
             @PathVariable Long commentId,
-            @AuthenticationPrincipal User user
+            @AuthenticationPrincipal UserPrincipal principal  // ★ 수정
     ) {
+        User user = userRepository.findByLoginId(principal.getUsername())
+                .orElseThrow();
+
         commentService.delete(commentId, user);
         return "삭제 완료";
     }
+//내가 쓴 댓글들
+    @Operation(summary = "내가 쓴 댓글 조회")
+    @GetMapping("/my")
+    public List<CommentResponseDto> myComments(
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        User user = userRepository.findByLoginId(principal.getUsername())
+                .orElseThrow();
 
+        return commentService.getMyComments(user);
+    }
 }

@@ -1,3 +1,17 @@
 spring:
   profiles:
     active: dev # OR prod
+
+
+cloud:
+  aws:
+    credentials:
+      access-key: AKIAS3DUDLOG5FR7LEGI
+      secret-key: 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
+
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    s3:
+      bucket: rebuild-lion
