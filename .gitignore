@@ -39,5 +39,4 @@ out/
 # MySQL Docker volume
 _vol/
 
-src/main/resources/application.yml
-src/main/resources/application.properties
+application.yml

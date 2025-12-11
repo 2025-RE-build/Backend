@@ -9,8 +9,9 @@ spring:
     properties.hibernate.format_sql: true # SQL을 예쁘게 줄바꿈해서 보여줌
 server.port: 8080
 jwt:
-  secret: s8Kf9!xP2zLq#0Wm@R4tV7nB3uH$Qp1YcE5jD8rT6kF!Zg9
+  secret: s8Kf9!xP2zLq#0Wm@R4tV7nB3uHQp1YcE5jD8rT6kF!Zg9
   access-token-validity-in-ms: 1800000      # 30분
   refresh-token-validity-in-ms: 604800000
+  expiration: 3600000
 openai:
   api-key: ${OPENAI_API_KEY}
