@@ -16,14 +16,17 @@ public class Message {
 
     private LocalDateTime createdAt;
 
+    // 혼잣말 묶음 ID
+    @Column(nullable = false)
+    private Long monologueId;
+
     @PrePersist
     public void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
 
-    public Message(String content) {
+    public Message(Long monologueId, String content) {
+        this.monologueId = monologueId;
         this.content = content;
     }
-
-    public Message() {}
 }

@@ -25,7 +25,7 @@ public class MessageController {
     public void handleChat(MessageRequestDto dto) {
 
         // 1) DB에 저장
-        MessageResponseDto saved = messageService.saveContent(dto.getContent());
+        MessageResponseDto saved = messageService.save(dto);
 
         // 2) 저장된 메시지를 모든 클라이언트에게 push
         messagingTemplate.convertAndSend("/topic/messages", saved);
