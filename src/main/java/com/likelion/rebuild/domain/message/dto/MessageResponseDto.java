@@ -8,11 +8,15 @@ import java.time.LocalDateTime;
 @Getter
 public class MessageResponseDto {
 
+    private Long id;
+    private Long monologueId;
     private String content;
     private LocalDateTime createdAt;
 
-    public MessageResponseDto(Message m) {
-        this.content = m.getContent();
-        this.createdAt = m.getCreatedAt();
+    public MessageResponseDto(Message message) {
+        this.id = message.getId();
+        this.monologueId = message.getMonologueId();
+        this.content = message.getContent();
+        this.createdAt = message.getCreatedAt();
     }
 }

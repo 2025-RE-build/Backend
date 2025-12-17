@@ -7,6 +7,7 @@ import com.likelion.rebuild.domain.message.entity.Message;
 import com.likelion.rebuild.domain.message.repository.MessageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,17 +27,17 @@ public class MessageService {
 
     // 혼잣말 리스트
     public List<ListResponseDto> getMonologueList() {
-        return repo.findMonologueList().stream()
-                .map(row -> new ListResponseDto(
-                        (Long) row[0],
-                        (LocalDateTime) row[1],
-                        (String) row[2]
-                ))
+        return repo.findMonologueList();
+    }
+
+
+    // 혼잣말 상세
+    @Transactional(readOnly = true)
+    public List<MessageResponseDto> getMonologue(Long monologueId) {
+        return repo.findByMonologueIdOrderByCreatedAtAsc(monologueId)
+                .stream()
+                .map(MessageResponseDto::new)
                 .toList();
     }
 
-    // 혼잣말 상세
-    public List<Message> getMonologue(Long monologueId) {
-        return repo.findByMonologueIdOrderByCreatedAtAsc(monologueId);
-    }
 }
