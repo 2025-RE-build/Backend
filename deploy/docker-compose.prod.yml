@@ -2,6 +2,8 @@ services:
   app:
     image: leeym1/rebuild:latest
     container_name: rebuild-app
+    environment:
+      JWT_SECRET: "s8Kf9!xP2zLq#0Wm@R4tV7nB3uHQp1YcE5jD8rT6kF!Zg9"
     env_file:
       - .env.prod     # 실제 서버에서 제공
     ports:
