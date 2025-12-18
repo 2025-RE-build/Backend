@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/posts")
+@RequestMapping("/posts")
 @Tag(name = "Post API", description = "게시글 CRUD 관련 API")
 public class PostController {
 
