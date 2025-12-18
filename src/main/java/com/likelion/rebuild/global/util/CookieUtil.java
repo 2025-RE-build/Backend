@@ -6,7 +6,7 @@ public class CookieUtil {
     private static final String REFRESH_TOKEN_NAME = "refreshToken";
     private static final long REFRESH_TOKEN_MAX_AGE = 7L * 24 * 60 * 60;
 
-    private CookieUtil() {} // 인스턴스 생성 방지
+    private CookieUtil() {}
 
     public static ResponseCookie createRefreshTokenCookie(String token) {
         return ResponseCookie.from(REFRESH_TOKEN_NAME, token)
