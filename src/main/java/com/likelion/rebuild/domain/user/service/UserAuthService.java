@@ -54,7 +54,7 @@ public class UserAuthService {
         String accessToken = jwtTokenProvider.createAccessToken(user.getLoginId());
         String refreshToken = jwtTokenProvider.createRefreshToken(user.getLoginId());
 
-        user.setRefreshToken(refreshToken);
+        user.updateRefreshToken(refreshToken);
 
         return new TokenResponseDto(accessToken, refreshToken);
     }
@@ -77,7 +77,7 @@ public class UserAuthService {
         String newAccessToken = jwtTokenProvider.createAccessToken(loginId);
         String newRefreshToken = jwtTokenProvider.createRefreshToken(loginId);
 
-        user.setRefreshToken(newRefreshToken);
+        user.updateRefreshToken(newRefreshToken);
 
         return new TokenResponseDto(newAccessToken, newRefreshToken);
     }
