@@ -6,7 +6,7 @@ import com.likelion.rebuild.domain.community.entity.Post;
 import com.likelion.rebuild.domain.community.repository.PostRepository;
 import com.likelion.rebuild.domain.user.entity.User;
 import com.likelion.rebuild.global.service.S3Uploader;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +20,7 @@ public class PostService {
     private final S3Uploader s3Uploader;   // ⭐ 반드시 필요
 
     //게시글 생성
+    @Transactional
     public PostResponseDto create(PostRequestDto dto, User user) {
 
         Post post = Post.builder()
@@ -35,7 +36,7 @@ public class PostService {
 
 
     //게시물 개별 조회
-
+    @Transactional(readOnly = true)
     public PostResponseDto getPost(Long id) {
         return new PostResponseDto(
                 postRepository.findById(id).orElseThrow()
@@ -44,6 +45,7 @@ public class PostService {
 
 
     //전체 목록 최신순 조회
+    @Transactional(readOnly = true)
     public List<PostResponseDto> getAll() {
         return postRepository.findAllByOrderByCreatedAtDesc()
                 .stream()
@@ -69,6 +71,7 @@ public class PostService {
 
 
     //게시글 삭제 (S3 이미지까지 삭제)
+    @Transactional
     public void delete(Long id, User user) {
 
         Post post = postRepository.findById(id).orElseThrow();
@@ -87,6 +90,7 @@ public class PostService {
 
 
     //최신 글 3개 조회
+    @Transactional(readOnly = true)
     public List<PostResponseDto> getLatestPosts() {
         return postRepository.findTop3ByOrderByCreatedAtDesc()
                 .stream()

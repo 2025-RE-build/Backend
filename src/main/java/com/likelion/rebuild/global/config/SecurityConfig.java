@@ -33,7 +33,10 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(request -> {
                     CorsConfiguration config = new CorsConfiguration();
-                    config.setAllowedOrigins(List.of("http://localhost:3000")); // React 주소
+                    config.setAllowedOrigins(List.of(
+                            "http://localhost:3000",
+                            "https://rebuildlion.cloud/"
+                    )); // React 주소
                     config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                     config.setAllowedHeaders(List.of("*"));
                     config.setAllowCredentials(true); // 쿠키 허용
