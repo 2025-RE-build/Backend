@@ -6,6 +6,7 @@ import com.likelion.rebuild.domain.user.dto.TokenResponseDto;
 import com.likelion.rebuild.domain.user.service.UserAuthService;
 import com.likelion.rebuild.global.exception.CustomException;
 import com.likelion.rebuild.global.exception.ErrorCode;
+import com.likelion.rebuild.global.util.CookieUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -33,13 +34,8 @@ public class UserAuthController {
     ) {
         TokenResponseDto tokens = userAuthService.login(request);
 
-        ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", tokens.getRefreshToken())
-                .httpOnly(true)
-                .secure(false)
-                .path("/")
-                .maxAge(7 * 24 * 60 * 60)
-                .sameSite("Lax")
-                .build();
+        ResponseCookie refreshCookie =
+                CookieUtil.createRefreshTokenCookie(tokens.getRefreshToken());
 
         TokenResponseDto body = new TokenResponseDto(tokens.getAccessToken(), null);
 
@@ -58,13 +54,8 @@ public class UserAuthController {
 
         TokenResponseDto tokens = userAuthService.refreshByToken(refreshToken);
 
-        ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", tokens.getRefreshToken())
-                .httpOnly(true)
-                .secure(false)
-                .path("/")
-                .maxAge(7 * 24 * 60 * 60)
-                .sameSite("Lax")
-                .build();
+        ResponseCookie refreshCookie =
+                CookieUtil.createRefreshTokenCookie(tokens.getRefreshToken());
 
         TokenResponseDto body = new TokenResponseDto(tokens.getAccessToken(), null);
 
@@ -75,13 +66,7 @@ public class UserAuthController {
 
     @PostMapping("/logout")
     public ResponseEntity<Void> logout() {
-        ResponseCookie deleteCookie = ResponseCookie.from("refreshToken", "")
-                .httpOnly(true)
-                .secure(false)
-                .path("/")
-                .maxAge(0)
-                .sameSite("Lax")
-                .build();
+        ResponseCookie deleteCookie = CookieUtil.deleteRefreshTokenCookie();
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, deleteCookie.toString())
