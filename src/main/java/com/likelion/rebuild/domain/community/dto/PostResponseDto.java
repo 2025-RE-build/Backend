@@ -19,7 +19,7 @@ public class PostResponseDto {
         this.id = p.getId();
         this.title = p.getTitle();
         this.content = p.getContent();
-        this.author = p.getAuthor().getNickname();
+        this.author = (p.getAuthor() != null) ? p.getAuthor().getNickname() : "알 수 없음";
         this.createdAt = p.getCreatedAt();
         this.updatedAt = p.getUpdatedAt();
         this.imageUrl = p.getImageUrl();
